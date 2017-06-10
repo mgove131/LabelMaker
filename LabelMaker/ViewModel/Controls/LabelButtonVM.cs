@@ -2,20 +2,20 @@
 
 namespace LabelMaker.ViewModel.Controls
 {
-    public class LabelButtonVM : INotifyPropertyChanged
+    public class LabelButtonVm : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LabelButtonVM()
+        public LabelButtonVm(MainWindowVm parentVm)
         {
-            this.isSelected = false;
+            this.parentVm = parentVm;
         }
 
-        private bool isSelected;
-        public bool IsSelected
+        private MainWindowVm parentVm;
+        public MainWindowVm ParentVm
         {
-            get { return isSelected; }
-            set { PropertyChangedUtil.SetField(this, PropertyChanged, ref isSelected, value, nameof(IsSelected)); }
+            get { return parentVm; }
+            set { PropertyChangedUtil.SetField(this, PropertyChanged, ref parentVm, value, nameof(ParentVm)); }
         }
     }
 }
