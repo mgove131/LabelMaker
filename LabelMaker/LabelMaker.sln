@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelMaker", "LabelMaker\LabelMaker.csproj", "{C9C5169B-F864-4C82-A318-831431EE239F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelMaker", "LabelMaker.csproj", "{F050599B-6546-49A4-A9B7-8CDB84597369}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C9C5169B-F864-4C82-A318-831431EE239F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9C5169B-F864-4C82-A318-831431EE239F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9C5169B-F864-4C82-A318-831431EE239F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9C5169B-F864-4C82-A318-831431EE239F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F050599B-6546-49A4-A9B7-8CDB84597369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F050599B-6546-49A4-A9B7-8CDB84597369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F050599B-6546-49A4-A9B7-8CDB84597369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F050599B-6546-49A4-A9B7-8CDB84597369}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
