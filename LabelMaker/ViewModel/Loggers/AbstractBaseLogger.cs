@@ -17,7 +17,10 @@ namespace LabelMaker.ViewModel.Loggers
 
         public void Write(Exception ex)
         {
-            Write(ex.ToString());
+            if (ex != null)
+            {
+                Write(ex.ToString());
+            }
         }
 
         public void WriteLine(string value)
@@ -32,7 +35,10 @@ namespace LabelMaker.ViewModel.Loggers
 
         public void WriteLine(Exception ex)
         {
-            WriteLine(ex.ToString());
+            if (ex != null)
+            {
+                WriteLine(ex.ToString());
+            }
         }
     }
 }

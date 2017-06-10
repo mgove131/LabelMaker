@@ -1,6 +1,5 @@
 ﻿using LabelMaker.View.Controls;
 using LabelMaker.ViewModel;
-using LabelMaker.ViewModel.Loggers;
 using System;
 using System.Windows;
 
@@ -9,8 +8,6 @@ namespace LabelMaker
     public partial class MainWindow : Window
     {
         private MainWindowVm ViewModel { get; } = new MainWindowVm();
-
-        public static ILogger Logger { get; } = new LoggerMessageBox();
 
         public MainWindow()
         {
@@ -24,7 +21,7 @@ namespace LabelMaker
                 }
                 catch (Exception ex)
                 {
-                    MainWindow.Logger.WriteLine(ex);
+                    App.Logger.WriteLine(ex);
                 }
             };
 
@@ -36,7 +33,7 @@ namespace LabelMaker
                 }
                 catch (Exception ex)
                 {
-                    MainWindow.Logger.WriteLine(ex);
+                    App.Logger.WriteLine(ex);
                 }
             };
         }

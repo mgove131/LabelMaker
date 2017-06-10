@@ -40,7 +40,7 @@ namespace LabelMaker.View.Controls
                 }
                 catch (Exception ex)
                 {
-                    MainWindow.Logger.WriteLine(ex);
+                    App.Logger.WriteLine(ex);
                 }
             };
 
@@ -52,7 +52,7 @@ namespace LabelMaker.View.Controls
                 }
                 catch (Exception ex)
                 {
-                    MainWindow.Logger.WriteLine(ex);
+                    App.Logger.WriteLine(ex);
                 }
             };
         }
@@ -85,7 +85,6 @@ namespace LabelMaker.View.Controls
 
                 buttonBinding = new Binding("SelectedButtonIndex");
                 buttonBinding.Source = vm.ParentVm;
-                buttonBinding.Mode = BindingMode.OneWay;
                 buttonBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                 buttonBinding.ConverterParameter = ButtonIndex;
                 buttonBinding.Converter = converter;
