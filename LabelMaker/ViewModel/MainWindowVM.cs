@@ -24,6 +24,7 @@ namespace LabelMaker.ViewModel
             }
 
             this.selectedButtonIndex = 0;
+            this.proNumbersInput = String.Empty;
         }
 
         private List<LabelButtonVm> labelButtonVms;
@@ -64,7 +65,7 @@ namespace LabelMaker.ViewModel
 
         public void Print()
         {
-            List<string> proNums = proNumbersInput.Split(new[] { ' ', ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var proNums = proNumbersInput?.Split(new[] { ' ', ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList() ?? new List<string>();
             foreach (var proNum in proNums)
             {
                 Console.WriteLine(proNum);
@@ -77,11 +78,6 @@ namespace LabelMaker.ViewModel
             }
 
             string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "out.pdf");
-            try
-            {
-                File.Delete(filePath);
-            }
-            catch { }
             PdfMaker.PrintLabels(filePath, proNums, selectedButtonIndex);
         }
     }
