@@ -2,12 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 
 namespace LabelMaker.ViewModel
 {
     public class MainWindowVm : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public event Action<string> ShowMessage;
 
         private int numButtons = 10;
 
@@ -21,7 +25,6 @@ namespace LabelMaker.ViewModel
 
             this.selectedButtonIndex = 0;
         }
-
 
         private List<LabelButtonVm> labelButtonVms;
         public List<LabelButtonVm> LabelButtonVms
@@ -49,13 +52,37 @@ namespace LabelMaker.ViewModel
             get { return DateTime.Now; }
         }
 
+        private void SendShowMessage(string message)
+        {
+            ShowMessage?.Invoke(message);
+        }
+
+        public void SendShowMessage(string format, params object[] arg)
+        {
+            SendShowMessage(String.Format(format, arg));
+        }
+
         public void Print()
         {
-            string[] proNumbers = proNumbersInput.Split(new[] { ' ', ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var proNumber in proNumbers)
+            List<string> proNums = proNumbersInput.Split(new[] { ' ', ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            foreach (var proNum in proNums)
             {
-                Console.WriteLine(proNumber);
+                Console.WriteLine(proNum);
             }
+
+            int spaces = (LabelButtonVms.Count - selectedButtonIndex);
+            if (proNums.Count > spaces)
+            {
+                SendShowMessage("There are more pro #s ({0}) than labels ({1}), they will be truncated.", proNums.Count, spaces);
+            }
+
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "out.pdf");
+            try
+            {
+                File.Delete(filePath);
+            }
+            catch { }
+            PdfMaker.PrintLabels(filePath, proNums, selectedButtonIndex);
         }
     }
 }

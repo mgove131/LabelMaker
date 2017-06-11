@@ -12,12 +12,10 @@ namespace LabelMaker
         {
             InitializeComponent();
 
-            this.Initialized += (sender, e) =>
-            {
-            };
-
             this.Loaded += (sender, e) =>
             {
+                ViewModel.ShowMessage += ShowMessage;
+
                 int buttonIndex = 0;
                 foreach (var labelButtonVm in ViewModel.LabelButtonVms)
                 {
@@ -34,6 +32,11 @@ namespace LabelMaker
 
                 this.DataContext = ViewModel;
             };
+        }
+
+        private void ShowMessage(string message)
+        {
+            MessageBox.Show(this, message);
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
