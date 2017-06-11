@@ -24,7 +24,7 @@ namespace LabelMaker.ViewModel
             }
 
             this.selectedButtonIndex = 0;
-            this.proNumbersInput = String.Empty;
+            this.proNumbersInput = string.Empty;
         }
 
         private List<LabelButtonVm> labelButtonVms;
@@ -60,7 +60,7 @@ namespace LabelMaker.ViewModel
 
         public void SendShowMessage(string format, params object[] arg)
         {
-            SendShowMessage(String.Format(format, arg));
+            SendShowMessage(string.Format(format, arg));
         }
 
         public void Print()
@@ -71,14 +71,14 @@ namespace LabelMaker.ViewModel
                 Console.WriteLine(proNum);
             }
 
-            int spaces = (LabelButtonVms.Count - selectedButtonIndex);
-            if (proNums.Count > spaces)
+            int openSpaces = (numButtons - selectedButtonIndex);
+            if (proNums.Count > openSpaces)
             {
-                SendShowMessage("There are more pro #s ({0}) than labels ({1}), they will be truncated.", proNums.Count, spaces);
+                SendShowMessage("There are more pro #s ({0}) than labels ({1}), they will be truncated.", proNums.Count, openSpaces);
             }
 
             string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "out.pdf");
-            PdfMaker.PrintLabels(filePath, proNums, selectedButtonIndex);
+            PdfMaker.PrintLabels(filePath, numButtons, proNums, selectedButtonIndex);
         }
     }
 }

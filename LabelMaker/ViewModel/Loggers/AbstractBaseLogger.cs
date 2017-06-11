@@ -12,7 +12,7 @@ namespace LabelMaker.ViewModel.Loggers
 
         public void Write(string format, params object[] arg)
         {
-            Write(String.Format(format, arg));
+            Write(string.Format(format, arg));
         }
 
         public void Write(Exception ex)
@@ -25,12 +25,12 @@ namespace LabelMaker.ViewModel.Loggers
 
         public void WriteLine(string value)
         {
-            Write(String.Format("{0}{1}", value, Environment.NewLine));
+            Write(string.Format("{0}{1}", value, Environment.NewLine));
         }
 
         public void WriteLine(string format, params object[] arg)
         {
-            WriteLine(String.Format(format, arg));
+            WriteLine(string.Format(format, arg));
         }
 
         public void WriteLine(Exception ex)
