@@ -34,44 +34,23 @@ namespace LabelMaker.View.Controls
 
             this.Initialized += (sender, e) =>
             {
-                try
+                this.FontSize = 12;
+                this.FontWeight = FontWeights.Bold;
+
+                this.DataContextChanged += (sender1, e1) =>
                 {
-                    InitalizedMethod(sender, e);
-                }
-                catch (Exception ex)
+                    UpdateBindings();
+                };
+
+                this.Click += (sender1, e1) =>
                 {
-                    App.Logger.WriteLine(ex);
-                }
+                    ButtonClick();
+                };
             };
 
             this.Loaded += (sender, e) =>
             {
-                try
-                {
-                    LoadedMethod(sender, e);
-                }
-                catch (Exception ex)
-                {
-                    App.Logger.WriteLine(ex);
-                }
             };
-        }
-
-        private void InitalizedMethod(object sender, EventArgs e)
-        {
-            this.DataContextChanged += (sender1, e1) =>
-            {
-                UpdateBindings();
-            };
-
-            this.Click += (sender1, e1) =>
-            {
-                ButtonClick();
-            };
-        }
-
-        private void LoadedMethod(object sender, RoutedEventArgs e)
-        {
         }
 
         private void UpdateBindings()

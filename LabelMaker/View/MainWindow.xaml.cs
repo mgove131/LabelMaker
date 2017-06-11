@@ -1,6 +1,5 @@
 ﻿using LabelMaker.View.Controls;
 using LabelMaker.ViewModel;
-using System;
 using System.Windows;
 
 namespace LabelMaker
@@ -15,49 +14,24 @@ namespace LabelMaker
 
             this.Initialized += (sender, e) =>
             {
-                try
-                {
-                    InitalizedMethod(sender, e);
-                }
-                catch (Exception ex)
-                {
-                    App.Logger.WriteLine(ex);
-                }
             };
 
             this.Loaded += (sender, e) =>
             {
-                try
+                int buttonIndex = 0;
+                foreach (var labelButtonVm in ViewModel.LabelButtonVms)
                 {
-                    LoadedMethod(sender, e);
+                    var button = new LabelButton();
+                    button.ButtonIndex = buttonIndex;
+                    button.Content = string.Format("{0}", buttonIndex + 1);
+                    button.DataContext = labelButtonVm;
+                    uxButtonGrid.Children.Add(button);
+
+                    buttonIndex++;
                 }
-                catch (Exception ex)
-                {
-                    App.Logger.WriteLine(ex);
-                }
+
+                this.DataContext = ViewModel;
             };
-        }
-
-        private void InitalizedMethod(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LoadedMethod(object sender, RoutedEventArgs e)
-        {
-            int buttonIndex = 0;
-            foreach (var labelButtonVm in ViewModel.LabelButtonVms)
-            {
-                var button = new LabelButton();
-                button.ButtonIndex = buttonIndex;
-                button.Content = string.Format("{0}", buttonIndex + 1);
-                button.DataContext = labelButtonVm;
-                uxButtonGrid.Children.Add(button);
-
-                buttonIndex++;
-            }
-
-            this.DataContext = ViewModel;
         }
     }
 }

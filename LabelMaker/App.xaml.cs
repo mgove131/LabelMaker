@@ -1,5 +1,6 @@
 ﻿using LabelMaker.ViewModel.Loggers;
 using System;
+using System.Runtime.ExceptionServices;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -11,8 +12,21 @@ namespace LabelMaker
 
         public App()
         {
-            AppDomain.CurrentDomain.UnhandledException += HandleException;
+            this.Startup += App_Startup;
             this.DispatcherUnhandledException += HandleException;
+            AppDomain.CurrentDomain.UnhandledException += HandleException;
+        }
+
+        private void App_Startup(object sender, StartupEventArgs e)
+        {
+            AppDomain.CurrentDomain.FirstChanceException += HandleException;
+            AppDomain.CurrentDomain.UnhandledException += HandleException;
+        }
+
+        private void HandleException(object sender, FirstChanceExceptionEventArgs e)
+        {
+            Exception ex = e.Exception;
+            HandleException(ex);
         }
 
         private void HandleException(object sender, UnhandledExceptionEventArgs e)
@@ -25,6 +39,7 @@ namespace LabelMaker
         {
             Exception ex = e.Exception;
             HandleException(ex);
+            e.Handled = true;
         }
 
         private void HandleException(Exception e)

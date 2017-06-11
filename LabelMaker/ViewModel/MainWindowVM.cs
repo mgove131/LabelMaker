@@ -8,17 +8,15 @@ namespace LabelMaker.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private int numButtons = 10;
+
         public MainWindowVm()
         {
-            this.labelButtonVms = new List<LabelButtonVm>
+            this.labelButtonVms = new List<LabelButtonVm>();
+            for (int i = 0; i < numButtons; i++)
             {
-                new LabelButtonVm(this),
-                new LabelButtonVm(this),
-                new LabelButtonVm(this),
-                new LabelButtonVm(this),
-                new LabelButtonVm(this),
-                new LabelButtonVm(this),
-            };
+                this.labelButtonVms.Add(new LabelButtonVm(this));
+            }
 
             this.selectedButtonIndex = 0;
         }

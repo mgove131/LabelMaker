@@ -17,17 +17,20 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <UniformGrid
-            x:Name="uxButtonGrid"
-            Grid.Row="0"
-            Grid.Column="0"
-            Columns="2" />
+        <DockPanel Grid.Row="0" Grid.Column="0">
+            <Label Content="Starting Label:" DockPanel.Dock="Top" />
+            <UniformGrid x:Name="uxButtonGrid" Columns="2" />
+        </DockPanel>
 
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="1"
-            Orientation="Vertical">
-            <TextBlock x:Name="uxProNumbers" />
-        </StackPanel>
+        <DockPanel Grid.Row="0" Grid.Column="1">
+            <Label Content="Pro #s:" DockPanel.Dock="Top" />
+            <TextBox
+                x:Name="uxProNumbers"
+                AcceptsReturn="True"
+                DockPanel.Dock="Top"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                TextWrapping="NoWrap" />
+        </DockPanel>
     </Grid>
 </Window>
