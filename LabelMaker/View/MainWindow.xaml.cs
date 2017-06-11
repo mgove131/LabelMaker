@@ -21,10 +21,12 @@ namespace LabelMaker
                 int buttonIndex = 0;
                 foreach (var labelButtonVm in ViewModel.LabelButtonVms)
                 {
-                    var button = new LabelButton();
-                    button.ButtonIndex = buttonIndex;
-                    button.Content = string.Format("{0}", buttonIndex + 1);
-                    button.DataContext = labelButtonVm;
+                    var button = new LabelButton()
+                    {
+                        ButtonIndex = buttonIndex,
+                        Content = string.Format("{0}", buttonIndex + 1),
+                        DataContext = labelButtonVm,
+                    };
                     uxButtonGrid.Children.Add(button);
 
                     buttonIndex++;

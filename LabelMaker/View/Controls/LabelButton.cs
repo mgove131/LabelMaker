@@ -62,11 +62,13 @@ namespace LabelMaker.View.Controls
             {
                 vm = (LabelButtonVm)DataContext;
 
-                buttonBinding = new Binding("SelectedButtonIndex");
-                buttonBinding.Source = vm.ParentVm;
-                buttonBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                buttonBinding.ConverterParameter = ButtonIndex;
-                buttonBinding.Converter = converter;
+                buttonBinding = new Binding("SelectedButtonIndex")
+                {
+                    Source = vm.ParentVm,
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    ConverterParameter = ButtonIndex,
+                    Converter = converter,
+                };
                 BindingOperations.SetBinding(this, LabelButton.ForegroundProperty, buttonBinding);
             }
         }
