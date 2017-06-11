@@ -1,4 +1,5 @@
 ﻿using LabelMaker.ViewModel.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -33,6 +34,28 @@ namespace LabelMaker.ViewModel
         {
             get { return selectedButtonIndex; }
             set { PropertyChangedUtil.SetField(this, PropertyChanged, ref selectedButtonIndex, value, nameof(SelectedButtonIndex)); }
+        }
+
+        private string proNumbersInput;
+        public string ProNumbersInput
+        {
+            get { return proNumbersInput; }
+            set { PropertyChangedUtil.SetField(this, PropertyChanged, ref proNumbersInput, value, nameof(ProNumbersInput)); }
+        }
+
+
+        public DateTime Today
+        {
+            get { return DateTime.Now; }
+        }
+
+        public void Print()
+        {
+            string[] proNumbers = proNumbersInput.Split(new[] { ' ', ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var proNumber in proNumbers)
+            {
+                Console.WriteLine(proNumber);
+            }
         }
     }
 }

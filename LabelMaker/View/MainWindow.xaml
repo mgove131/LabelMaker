@@ -24,12 +24,17 @@
 
         <DockPanel Grid.Row="0" Grid.Column="1">
             <Label Content="Pro #s:" DockPanel.Dock="Top" />
+            <Button
+                Click="PrintButton_Click"
+                Content="Print"
+                DockPanel.Dock="Bottom" />
             <TextBox
                 x:Name="uxProNumbers"
                 AcceptsReturn="True"
                 DockPanel.Dock="Top"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                Text="{Binding Path=ProNumbersInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="NoWrap" />
         </DockPanel>
     </Grid>

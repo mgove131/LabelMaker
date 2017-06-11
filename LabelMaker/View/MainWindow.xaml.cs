@@ -35,5 +35,15 @@ namespace LabelMaker
                 this.DataContext = ViewModel;
             };
         }
+
+        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        {
+            DoPrint();
+        }
+
+        private void DoPrint()
+        {
+            ViewModel.Print();
+        }
     }
 }
