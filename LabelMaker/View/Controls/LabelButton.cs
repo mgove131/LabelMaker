@@ -65,6 +65,7 @@ namespace LabelMaker.View.Controls
                 buttonBinding = new Binding("SelectedButtonIndex")
                 {
                     Source = vm.ParentVm,
+                    Mode = BindingMode.OneWay,
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                     ConverterParameter = ButtonIndex,
                     Converter = converter,
