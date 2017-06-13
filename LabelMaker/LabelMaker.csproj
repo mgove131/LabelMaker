@@ -70,6 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\ExtensionMethods\StringExtensionMethods.cs" />
     <Compile Include="ViewModel\Controls\LabelButtonVM.cs" />
     <Compile Include="ViewModel\Loggers\AbstractBaseLogger.cs" />
     <Compile Include="ViewModel\Loggers\ILogger.cs" />
