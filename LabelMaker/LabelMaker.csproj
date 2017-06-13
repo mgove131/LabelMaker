@@ -76,7 +76,7 @@
     <Compile Include="ViewModel\Loggers\LoggerMessageBox.cs" />
     <Compile Include="ViewModel\Loggers\LoggerConsole.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
-    <Compile Include="ViewModel\PdfMaker.cs" />
+    <Compile Include="Model\PdfMaker.cs" />
     <Compile Include="ViewModel\PropertyChangedUtil.cs" />
     <Compile Include="View\Controls\LabelButton.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
