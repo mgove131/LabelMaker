@@ -1,9 +1,9 @@
-﻿using PdfSharp.Drawing;
+﻿using LabelMaker.Model.ExtensionMethods;
+using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 
 namespace LabelMaker.ViewModel
 {
@@ -11,12 +11,7 @@ namespace LabelMaker.ViewModel
     {
         public static void PrintLabels(string filePath, int numLabels, List<string> proNums, int startingLabelIndex)
         {
-            //delete old pdf
-            try
-            {
-                File.Delete(filePath);
-            }
-            catch { }
+            filePath.SafeDelete();
 
             PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();

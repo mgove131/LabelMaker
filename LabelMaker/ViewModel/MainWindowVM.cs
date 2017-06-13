@@ -77,7 +77,8 @@ namespace LabelMaker.ViewModel
                 SendShowMessage("There are more pro #s ({0}) than labels ({1}), they will be truncated.", proNums.Count, openSpaces);
             }
 
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "out.pdf");
+            //string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LabelMaker.pdf");
+            string filePath = Path.Combine("LabelMaker.pdf");
             PdfMaker.PrintLabels(filePath, numButtons, proNums, selectedButtonIndex);
         }
     }
