@@ -11,7 +11,7 @@ namespace LabelMaker.ViewModel
     {
         public static void PrintLabels(string filePath, int numLabels, List<string> proNums, int startingLabelIndex)
         {
-            filePath.SafeDelete();
+            filePath.SafeFileDelete();
 
             PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();
