@@ -1,85 +1,80 @@
-﻿using LabelMaker.ViewModel.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 
 namespace LabelMaker.ViewModel
 {
     public class MainWindowVm : INotifyPropertyChanged
     {
+        private const int NUM_BUTTONS = 10;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Method that shows messages in the UI.
+        /// </summary>
         public event Action<string> ShowMessage;
 
-        private int numButtons = 10;
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public MainWindowVm()
         {
-            this.labelButtonVms = new List<LabelButtonVm>();
-            for (int i = 0; i < numButtons; i++)
-            {
-                this.labelButtonVms.Add(new LabelButtonVm(this));
-            }
-
-            this.selectedButtonIndex = 0;
-            this.proNumbersInput = string.Empty;
+            this.outputObjects = new List<OutputObject>();
+            this.InitOutputObjects();
         }
 
-        private List<LabelButtonVm> labelButtonVms;
-        public List<LabelButtonVm> LabelButtonVms
+        private void InitOutputObjects()
         {
-            get { return labelButtonVms; }
+            this.outputObjects.Clear();
+            for (int index = 0; index < NUM_BUTTONS; ++index)
+                this.outputObjects.Add(new OutputObject());
         }
 
-        private int selectedButtonIndex;
-        public int SelectedButtonIndex
+        private List<OutputObject> outputObjects;
+        /// <summary>
+        /// Input objects.
+        /// </summary>
+        public List<OutputObject> OutputObjects
         {
-            get { return selectedButtonIndex; }
-            set { PropertyChangedUtil.SetField(this, PropertyChanged, ref selectedButtonIndex, value, nameof(SelectedButtonIndex)); }
+            get { return outputObjects; }
+            set { PropertyChangedUtil.SetField(this, PropertyChanged, ref outputObjects, value, nameof(OutputObjects)); }
         }
 
-        private string proNumbersInput;
-        public string ProNumbersInput
-        {
-            get { return proNumbersInput; }
-            set { PropertyChangedUtil.SetField(this, PropertyChanged, ref proNumbersInput, value, nameof(ProNumbersInput)); }
-        }
-
-
-        public DateTime Today
-        {
-            get { return DateTime.Now; }
-        }
-
+        /// <summary>
+        /// Show a message in the UI.
+        /// </summary>
+        /// <param name="message">message</param>
         private void SendShowMessage(string message)
         {
             ShowMessage?.Invoke(message);
         }
 
+        /// <summary>
+        /// Show a message in the UI.
+        /// </summary>
+        /// <param name="format">A composite format string</param>
+        /// <param name="arg">An object array that contains zero or more objects to format</param>
         public void SendShowMessage(string format, params object[] arg)
         {
             SendShowMessage(string.Format(format, arg));
         }
 
+        /// <summary>
+        /// Create PDF output.
+        /// </summary>
         public void Print()
         {
-            var proNums = proNumbersInput?.Split(new[] { ' ', ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList() ?? new List<string>();
-            foreach (var proNum in proNums)
-            {
-                Console.WriteLine(proNum);
-            }
+            PdfMaker.PrintLabels(Path.Combine("LabelMaker.pdf"), outputObjects, true);
+        }
 
-            int openSpaces = (numButtons - selectedButtonIndex);
-            if (proNums.Count > openSpaces)
-            {
-                SendShowMessage("There are more pro #s ({0}) than labels ({1}), they will be truncated.", proNums.Count, openSpaces);
-            }
-
-            //string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LabelMaker.pdf");
-            string filePath = Path.Combine("LabelMaker.pdf");
-            PdfMaker.PrintLabels(filePath, numButtons, proNums, selectedButtonIndex);
+        /// <summary>
+        /// Clear input.
+        /// </summary>
+        public void Clear()
+        {
+            InitOutputObjects();
         }
     }
 }

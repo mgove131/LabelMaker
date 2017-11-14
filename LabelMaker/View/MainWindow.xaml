@@ -4,38 +4,60 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="LabelMaker"
+    Title=""
     Width="525"
     Height="350"
-    mc:Ignorable="d">
+    WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
         <DockPanel Grid.Row="0" Grid.Column="0">
-            <Label Content="Starting Label:" DockPanel.Dock="Top" />
-            <UniformGrid x:Name="uxButtonGrid" Columns="2" />
-        </DockPanel>
-
-        <DockPanel Grid.Row="0" Grid.Column="1">
-            <Label Content="Pro #s:" DockPanel.Dock="Top" />
-            <Button
-                Click="PrintButton_Click"
-                Content="Print"
-                DockPanel.Dock="Bottom" />
-            <TextBox
+            <Label Content="Data:" DockPanel.Dock="Top" />
+            <Grid DockPanel.Dock="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="3"
+                    Click="ClearButton_Click"
+                    Content="Clear"
+                    DockPanel.Dock="Bottom"
+                    FontSize="22"
+                    FontWeight="Bold" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="3"
+                    Click="PrintButton_Click"
+                    Content="Print"
+                    DockPanel.Dock="Bottom"
+                    FontSize="22"
+                    FontWeight="Bold" />
+            </Grid>
+            <DataGrid
                 x:Name="uxProNumbers"
-                AcceptsReturn="True"
+                AutoGenerateColumns="true"
+                CanUserAddRows="false"
+                CanUserDeleteRows="false"
+                CanUserReorderColumns="false"
+                CanUserResizeColumns="true"
+                CanUserResizeRows="false"
+                CanUserSortColumns="false"
+                ColumnWidth="*"
                 DockPanel.Dock="Top"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                ScrollViewer.VerticalScrollBarVisibility="Visible"
-                Text="{Binding Path=ProNumbersInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="NoWrap" />
+                ItemsSource="{Binding Path=OutputObjects}"
+                LoadingRow="uxProNumbers_LoadingRow"
+                ScrollViewer.VerticalScrollBarVisibility="Visible" />
         </DockPanel>
     </Grid>
 </Window>

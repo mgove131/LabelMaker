@@ -2,49 +2,67 @@
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace LabelMaker.ViewModel
 {
+    /// <summary>
+    /// Prints the PDF output.
+    /// </summary>
     public static class PdfMaker
     {
-        public static void PrintLabels(string filePath, int numLabels, List<string> proNums, int startingLabelIndex)
+        /// <summary>
+        /// Print the pdf output.
+        /// </summary>
+        /// <param name="filePath">Output file path</param>
+        /// <param name="outputObjects">Objects to print</param>
+        /// <param name="openPdf">Should the pdf file be opened?</param>
+        public static void PrintLabels(string filePath, List<OutputObject> outputObjects, bool openPdf)
         {
             filePath.SafeFileDelete();
 
-            PdfDocument document = new PdfDocument();
-            PdfPage page = document.AddPage();
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            XFont font = new XFont("Times New Roman", 10, XFontStyle.Bold);
-            XTextFormatter tf = new XTextFormatter(gfx);
+            PdfDocument pdfDocument = new PdfDocument();
+            XGraphics gfx = XGraphics.FromPdfPage(pdfDocument.AddPage());
+            XFont font = new XFont("Times New Roman", 10.0, XFontStyle.Regular);
+            XTextFormatter xtextFormatter = new XTextFormatter(gfx);
+            XBrush brush = false ? (XBrush)XBrushes.DarkGray : (XBrush)XBrushes.Transparent;
 
-            int[] xOffSets = { 40, 310 };
-            int yOffset = 100;
-            int ySpacing = 60;
-            int width = 250;
-            int height = 44;
-            for (int i = 0; i < numLabels; i++)
+            int[] xOffsets = new int[] { 40, 345 };
+            int yOffset = 59;
+            int yIncrement = 143;
+            int width = 245;
+            int height = 115;
+            for (int i = 0; i < outputObjects.Count; i++)
             {
-                int x = xOffSets[i % xOffSets.Length];
-                int y = yOffset + (ySpacing * (i / xOffSets.Length));
-                string text = string.Empty;
-
-                if (startingLabelIndex <= i)
+                OutputObject outputObject = outputObjects[i];
+                if (!outputObject.IsEmpty())
                 {
-                    int proNumIndex = i - startingLabelIndex;
-                    string proNum = (proNumIndex < proNums.Count) ? proNums[proNumIndex] : string.Empty;
-                    text = string.Format("Pro #: {0}", proNum);
-                }
+                    int x = xOffsets[i % xOffsets.Length];
+                    int y = yOffset + (yIncrement * (i / xOffsets.Length));
 
-                XRect rect = new XRect(x, y, width, height);
-                gfx.DrawRectangle(XBrushes.SeaShell, rect);
-                tf.DrawString(text, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+                    string date = outputObject.Date;
+                    string proNumber = outputObject.ProNumber;
+                    string customer = outputObject.Customer;
+                    string driver = outputObject.Driver;
+                    string notes = outputObject.Notes;
+
+                    string text = string.Empty;
+                    text += string.Format("   Pro #: {0}{1}{1}", proNumber, Environment.NewLine);
+                    text += string.Format("   Date: {0:d}{1}{1}", date, Environment.NewLine);
+                    text += string.Format("   Customer: {0}{1}{1}", customer, Environment.NewLine);
+                    text += string.Format("   Driver: {0}{1}{1}", driver, Environment.NewLine);
+                    text += string.Format("   Notes: {0}", notes, Environment.NewLine);
+
+                    XRect xrect = new XRect((double)x, (double)y, (double)width, (double)height);
+                    gfx.DrawRectangle(brush, xrect);
+                    xtextFormatter.DrawString(text, font, (XBrush)XBrushes.Black, xrect, XStringFormats.TopLeft);
+                }
             }
 
-            //save pdf
-            document.Save(filePath);
-            //open pdf
+            pdfDocument.Save(filePath);
+            if (!openPdf) return;
             Process.Start(filePath);
         }
     }

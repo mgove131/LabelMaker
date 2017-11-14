@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace LabelMaker.ViewModel
 {
+    /// <summary>
+    /// Util class that makes handing property changed easier
+    /// </summary>
     public static class PropertyChangedUtil
     {
         public static bool SetField<T>(object sender, PropertyChangedEventHandler propertyChanged, ref T field, T value, string propertyName)
